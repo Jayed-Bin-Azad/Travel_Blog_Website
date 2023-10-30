@@ -1,0 +1,57 @@
+  <!-- Header -->
+  <header class="">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><h2>Let's Tour<em>.</em></h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">HOME
+              </a>
+            </li> 
+  
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'blogs' %}">BLOGS</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                CATEGORY
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% for category in categories %}
+              <a class="dropdown-item" href="{% url 'category_blogs' category.slug %}">{{category.title}}</a>
+              {% endfor %}
+              </div>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{request.user.username}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownuser">
+              
+              <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+              
+              <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+              
+              </li>
+            </div>
+
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">LOGIN</a>
+            </li>
+            {% endif %}
+          </ul>
+          <form class="form-inline d-flex flex-nowrap my-2 ml-auto search-form" action="{% url 'search_blogs' %}" method="GET">
+            <input class="form-control px-6" name="search" type="text" placeholder="Search blogs" required>
+            <button class="btn btn-primary ml-1">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header> 
